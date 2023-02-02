@@ -1,3 +1,3 @@
-# NetworkAnalysis
+# Graphoskop
 
-[![Build Status](https://github.com/adelasm/NetworkAnalysis.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/adelasm/NetworkAnalysis.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://github.com/adelasm/Graphoskop.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/adelasm/Graphoskop.jl/actions/workflows/CI.yml?query=branch%3Amain)

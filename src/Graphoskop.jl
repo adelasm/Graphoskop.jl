@@ -1,4 +1,4 @@
-module NetworkAnalysis
+module Graphoskop
 
 # Write your package code here.
 

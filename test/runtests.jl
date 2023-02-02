@@ -1,6 +1,6 @@
-using NetworkAnalysis
+using Graphoskop
 using Test
 
-@testset "NetworkAnalysis.jl" begin
+@testset "Graphoskop.jl" begin
     # Write your tests here.
 end
