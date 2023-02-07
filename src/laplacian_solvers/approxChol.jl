@@ -1,3 +1,5 @@
+include("approxCholTypes.jl")
+
 #=
 
 approxChol Laplacian solver by Daniel A. Spielman, 2017.
