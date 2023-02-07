@@ -950,8 +950,9 @@ Solves sddm systems by wrapping approxchol_lap.
 Not yet optimized directly for sddm.
 
 For more info, see http://danspielman.github.io/Laplacians.jl/latest/usingSolvers/index.html
-"""
+
 approxchol_sddm = sddmWrapLap(approxchol_lap)
+"""
 
 
 
