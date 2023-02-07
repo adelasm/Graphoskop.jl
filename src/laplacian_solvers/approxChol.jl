@@ -1,4 +1,6 @@
 include("approxCholTypes.jl")
+using DataStructures
+using SparseArrays
 
 #=
 
