@@ -3,7 +3,9 @@ module Graphoskop
 using DataStructures
 using SparseArrays
 using LinearAlgebra
+using Arpack
 using Laplacians
+using Statistics
 
 function __init__()
 

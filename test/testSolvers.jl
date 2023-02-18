@@ -1,4 +1,5 @@
 using Laplacians
+using Random
 mats = []
 rhss = []
 solver = Main.Graphoskop.wrapCapture(approxchol_lap, mats, rhss)
