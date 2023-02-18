@@ -1,4 +1,5 @@
-using Graphoskop
+include("../src/Graphoskop.jl")
+
 using Test
 
 include("testSolvers.jl")

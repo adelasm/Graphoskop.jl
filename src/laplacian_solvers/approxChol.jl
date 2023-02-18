@@ -754,7 +754,7 @@ function approxchol_lap(a::SparseMatrixCSC{Tv,Ti};
       error("Adjacency matrix can not have negative edge weights")
   end
 
-    return Laplacians.lapWrapComponents(approxchol_lap1, a,
+    return lapWrapComponents(approxchol_lap1, a,
     verbose=verbose,
     tol=tol,
     maxits=maxits,
