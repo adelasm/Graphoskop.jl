@@ -1,9 +1,22 @@
 include("../src/Graphoskop.jl")
 
 using Test
+using LinearAlgebra
+using SimpleWeightedGraphs
+using Graphs
+
 
 include("testSolvers.jl")
 
 @testset "Graphoskop.jl" begin
-    # Write your tests here.
+    function ge(G, o)
+        solver = Graphoskop.approxchol_lap(G);
+        x = solver(o);
+        return sqrt(dot(o', x));
+   end
+
+   n = 1000;
+   G = adjacency_matrix(SimpleWeightedGraph(erdos_renyi(n, n * 2)));
+   o = rand(Float64, n);
+   result = ge(G, o);
 end
