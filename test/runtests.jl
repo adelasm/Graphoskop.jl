@@ -5,10 +5,8 @@ using LinearAlgebra
 using SimpleWeightedGraphs
 using Graphs
 
-
-include("testSolvers.jl")
-
 @testset "Graphoskop.jl" begin
+    include("testSolvers.jl")
     function ge(G, o)
         solver = Graphoskop.approxchol_lap(G);
         x = solver(o);
