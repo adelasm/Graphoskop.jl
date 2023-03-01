@@ -3,7 +3,7 @@ include("../src/Graphoskop.jl")
 using Test
 using LinearAlgebra
 using SimpleWeightedGraphs
-using Graphs
+using DataFrames
 
 @testset "Graphoskop.jl" begin
     include("testSolvers.jl")
