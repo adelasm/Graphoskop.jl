@@ -15,8 +15,17 @@ using DataFrames
         return sqrt(dot(o', x));
    end
    
-   n = 1000;
-   G = adjacency_matrix(SimpleWeightedGraph(erdos_renyi(n, n * 2)));
-   o = rand(Float64, n);
-   result = ge(G, o);
+
+   attributes = "C:\\Users\\Adelas\\.julia\\dev\\NetworkAnalysis\\data\\reddit_11_2016_line_node_attributes.csv"
+   graph = "C:\\Users\\Adelas\\.julia\\dev\\NetworkAnalysis\\data\\reddit_11_2016_linegraph.csv"
+
+   df = DataFrame(CSV.File(open(graph))); 
+   nodes = DataFrame(CSV.File(open(attributes)));
+   size = max(maximum(df.src), maximum(df.trg))
+   G = SimpleGraph(size);
+   for row in eachrow(df)
+    add_edge!(G, row.src, row.trg);
+   end
+   
+   result = ge(G, size);
 end
