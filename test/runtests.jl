@@ -4,6 +4,8 @@ using Test
 using LinearAlgebra
 using SimpleWeightedGraphs
 using Graphs
+using CSV
+using DataFrames
 
 @testset "Graphoskop.jl" begin
     include("testSolvers.jl")
