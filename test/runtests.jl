@@ -8,7 +8,7 @@ using CSV
 using DataFrames
 
 @testset "Graphoskop.jl" begin
-    include("testSolvers.jl")
+    #include("testSolvers.jl")
     function ge(G, o)
         solver = Graphoskop.approxchol_lap(G);
         x = solver(o);

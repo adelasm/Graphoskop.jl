@@ -1,4 +1,4 @@
-
+using Graphs
 #=
 
 approxChol Laplacian solver by Daniel A. Spielman, 2017.
@@ -742,14 +742,15 @@ The `ApproxCholParams` let you choose one of three orderings to perform the elim
 
 For more info, see http://danspielman.github.io/Laplacians.jl/latest/usingSolvers/index.html
 """
-function approxchol_lap(a::SparseMatrixCSC{Tv,Ti};
+function approxchol_lap(a::SimpleGraph{T};
   tol::Real=1e-6,
   maxits=1000,
   maxtime=Inf,
   verbose=false,
   pcgIts=Int[],
-  params=ApproxCholParams()) where {Tv,Ti}
+  params=ApproxCholParams()) where {T}
 
+  a = sparse(a)
   if minimum(a.nzval) < 0
       error("Adjacency matrix can not have negative edge weights")
   end
@@ -1124,8 +1125,9 @@ end
 This variation of approxChol creates a cholesky factor to do the elimination.
 It has not yet been optimized, and does not yet make the cholesky factor lower triangular
 """
-function approxchol_lapChol(a::SparseMatrixCSC{Tv,Ti}; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Int[]) where {Tv,Ti}
+function approxchol_lapChol(a::SimpleGraph{T}; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Int[]) where {T}
 
+    a = sparse(a)
     tol_ =tol
     maxits_ =maxits
     maxtime_ =maxtime
