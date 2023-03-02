@@ -20,12 +20,16 @@ using DataFrames
    graph = "C:\\Users\\Adelas\\.julia\\dev\\NetworkAnalysis\\data\\reddit_11_2016_linegraph.csv"
 
    df = DataFrame(CSV.File(open(graph))); 
-   nodes = DataFrame(CSV.File(open(attributes)));
+   attributes = DataFrame(CSV.File(open(attributes)));
    size = max(maximum(df.src), maximum(df.trg))
    G = SimpleGraph(size);
    for row in eachrow(df)
     add_edge!(G, row.src, row.trg);
    end
    
-   result = ge(G, size);
+   id_result = ge(G, maximum(attributes.ideology_difference));
+   of_result = ge(G, maximum(attributes.offensiveness));
+   @test id_result = 2.0341642960894033
+   @test of_result = 3.456012563079861
+
 end
