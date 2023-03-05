@@ -16,8 +16,8 @@ using DataFrames
    end
    
 
-   attributes = "C:\\Users\\Adelas\\.julia\\dev\\NetworkAnalysis\\data\\reddit_11_2016_line_node_attributes.csv"
-   graph = "C:\\Users\\Adelas\\.julia\\dev\\NetworkAnalysis\\data\\reddit_11_2016_linegraph.csv"
+   attributes = pwd() * "\\data\\reddit_11_2016_line_node_attributes.csv"
+   graph = pwd() * "\\data\\reddit_11_2016_linegraph.csv"
 
    df = DataFrame(CSV.File(open(graph))); 
    attributes = DataFrame(CSV.File(open(attributes)));
