@@ -1049,7 +1049,7 @@ function ldli2Chol(ldli)
     m = n + length(ldli.fval)
     li = zeros(Float64,m)
     lj = zeros(Float64,m)
-    lv = zeros(Float6464,m)
+    lv = zeros(Float64,m)
     lptr = 0
 
     dhi = zeros(n)
