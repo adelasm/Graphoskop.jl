@@ -45,7 +45,7 @@ order can be one of
 """
 mutable struct ApproxCholParams
     order::Symbol
-    stag_test::Integer
+    stag_test::Float64
 end
 
 ApproxCholParams() = ApproxCholParams(:deg, 5)
@@ -101,7 +101,7 @@ end
   Print a column in an LLmatp matrix.
   This is here for diagnostics.
 """
-function print_ll_col(llmat::LLmatp, i::Int)
+function print_ll_col(llmat::LLmatp, i::Float64)
     ll = llmat.cols[i]
     println("col $i, row $(ll.row) : $(ll.val)")
 
@@ -176,7 +176,7 @@ end
   Print a column in an LLMatOrd matrix.
   This is here for diagnostics.
 """
-function print_ll_col(llmat::LLMatOrd, i::Int)
+function print_ll_col(llmat::LLMatOrd, i::Float64)
     ptr = llmat.cols[i]
     while ptr != 0
       ll = llmat.lles[ptr]
@@ -257,7 +257,7 @@ end
 
 function compressCol!(a::LLmatp{Tind,Tval},
   colspace::Vector{LLp{Tind,Tval}},
-  len::Int,
+  len::Float64,
   pq::ApproxCholPQ{Tind}) where {Tind,Tval}
 
     o = Base.Order.ord(isless, x->x.row, false, Base.Order.Forward)
@@ -293,7 +293,7 @@ end
 
 function compressCol!(
   colspace::Vector{LLcol{Tind,Tval}},
-  len::Int
+  len::Float64
   ) where {Tind,Tval}
 
     o = Base.Order.ord(isless, x->x.row, false, Base.Order.Forward)
@@ -729,7 +729,7 @@ end
 
 """
     solver = approxchol_lap(a); x = solver(b);
-    solver = approxchol_lap(a; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Int[], params=ApproxCholParams())
+    solver = approxchol_lap(a; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Float64[], params=ApproxCholParams())
 
 A heuristic by Daniel Spielman inspired by the linear system solver in https://arxiv.org/abs/1605.02353 by Rasmus Kyng and Sushant Sachdeva.  Whereas that paper eliminates vertices one at a time, this eliminates edges one at a time.  It is probably possible to analyze it.
 The `ApproxCholParams` let you choose one of three orderings to perform the elimination.
@@ -747,7 +747,7 @@ function approxchol_lap(a::SimpleGraph{T};
   maxits=1000,
   maxtime=Inf,
   verbose=false,
-  pcgIts=Int[],
+  pcgIts=Float64[],
   params=ApproxCholParams()) where {T}
 
   a = sparse(a)
@@ -771,7 +771,7 @@ function approxchol_lapGreedy(a::SparseMatrixCSC;
   maxits=1000,
   maxtime=Inf,
   verbose=false,
-  pcgIts=Int[],
+  pcgIts=Float64[],
   params=ApproxCholParams())
 
   tol_ =tol
@@ -807,7 +807,7 @@ function approxchol_lapGiven(a::SparseMatrixCSC;
   maxits=1000,
   maxtime=Inf,
   verbose=false,
-  pcgIts=Int[],
+  pcgIts=Float64[],
   params=ApproxCholParams())
 
   tol_ =tol
@@ -843,7 +843,7 @@ function approxchol_lapWdeg(a::SparseMatrixCSC;
   maxits=1000,
   maxtime=Inf,
   verbose=false,
-  pcgIts=Int[],
+  pcgIts=Float64[],
   params=ApproxCholParams())
 
   tol_ =tol
@@ -894,7 +894,7 @@ function approxchol_lap1(a::SparseMatrixCSC{Tv,Ti};
   maxits=1000,
   maxtime=Inf,
   verbose=false,
-  pcgIts=Int[],
+  pcgIts=Float64[],
   params=ApproxCholParams()) where {Tv,Ti}
 
     tol_ =tol
@@ -942,7 +942,7 @@ end
 
 """
     solver = approxchol_sddm(sddm); x = solver(b);
-    solver = approxchol_sddm(sddm; tol=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Int[], params=ApproxCholParams())
+    solver = approxchol_sddm(sddm; tol=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Float64[], params=ApproxCholParams())
 
 Solves sddm systems by wrapping approxchol_lap.
 Not yet optimized directly for sddm.
@@ -1047,9 +1047,9 @@ It is not quite a Cholesky factor, because it is off by a perm
 function ldli2Chol(ldli)
     n = length(ldli.colptr)
     m = n + length(ldli.fval)
-    li = zeros(Int,m)
-    lj = zeros(Int,m)
-    lv = zeros(Float64,m)
+    li = zeros(Float64,m)
+    lj = zeros(Float64,m)
+    lv = zeros(Float6464,m)
     lptr = 0
 
     dhi = zeros(n)
@@ -1125,7 +1125,7 @@ end
 This variation of approxChol creates a cholesky factor to do the elimination.
 It has not yet been optimized, and does not yet make the cholesky factor lower triangular
 """
-function approxchol_lapChol(a::SimpleGraph{T}; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Int[]) where {T}
+function approxchol_lapChol(a::SimpleGraph{T}; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Float64[]) where {T}
 
     a = sparse(a)
     tol_ =tol
