@@ -742,24 +742,16 @@ The `ApproxCholParams` let you choose one of three orderings to perform the elim
 
 For more info, see http://danspielman.github.io/Laplacians.jl/latest/usingSolvers/index.html
 """
-function approxchol_lap(a::SimpleGraph{T};
+function approxchol_lap(a::SimpleGraph{Tval};
   tol::Real=1e-6,
   maxits=1000,
   maxtime=Inf,
   verbose=false,
   pcgIts=Int[],
-  params=ApproxCholParams()) where {T}
+  params=ApproxCholParams()) where {Tval}
 
 
-  a = lap(adjacency_matrix(a))
-
-  replace!(a.nzval, -1.0 => 0)
-
-  for x in eachcol(a)
-    if x == -1.0
-        x = 0
-    end
-  end
+  a = adjacency_matrix(a)
 
   if minimum(a.nzval) < 0
       error("Adjacency matrix can not have negative edge weights")

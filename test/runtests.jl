@@ -18,8 +18,8 @@ using SparseArrays
    end
    
 
-   attributes = pwd() * "\\data\\small_test_node_attributes.csv"
-   graph = pwd() * "\\data\\small_test_edges.csv"
+   attributes = pwd() * "\\test\\data\\small_test_node_attributes.csv"
+   graph = pwd() * "\\test\\data\\small_test_edges.csv"
 
    df = DataFrame(CSV.File(open(graph))); 
    attributes = DataFrame(CSV.File(open(attributes)));
