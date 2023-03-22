@@ -18,8 +18,8 @@ using SparseArrays
    end
    
 
-   attributes = pwd() * "\\data\\small_attributes.csv"
-   graph = pwd() * "\\data\\small_linegraph.csv"
+   attributes = pwd() * "\\data\\small_test_node_attributes.csv"
+   graph = pwd() * "\\data\\small_test_edges.csv"
 
    df = DataFrame(CSV.File(open(graph))); 
    attributes = DataFrame(CSV.File(open(attributes)));
@@ -31,7 +31,7 @@ using SparseArrays
    
    id_result = ge(G, Matrix(select(attributes, :ideology_difference => AsTable)));
    of_result = ge(G, Matrix(select(attributes, :offensiveness => AsTable)));
-   @test id_result = 2.0341642960894033
-   @test of_result = 3.456012563079861
+   @test id_result = 0.6951170472250192
+   @test of_result = 1.1015014759360282
 
 end
