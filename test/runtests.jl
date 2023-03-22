@@ -6,11 +6,13 @@ using SimpleWeightedGraphs
 using Graphs
 using CSV
 using DataFrames
+using Laplacians
+using SparseArrays
 
 @testset "Graphoskop.jl" begin
     #include("testSolvers.jl")
     function ge(G, o)
-        solver = Graphoskop.approxchol_lap(G);
+        solver = Graphoskop.approxchol_lap(G,verbose=true);
         x = solver(o);
         return sqrt(dot(o', x));
    end

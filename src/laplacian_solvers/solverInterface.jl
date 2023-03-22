@@ -1,3 +1,5 @@
+include("../graph/graphAlgs.jl")
+include("../graph/graphOps.jl")
 #=
 
 Code for transforming between Laplacian and SDDM solvers.
