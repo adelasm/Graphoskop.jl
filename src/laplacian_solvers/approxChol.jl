@@ -493,9 +493,6 @@ function approxChol(a::LLmatp{Tind,Tval}) where {Tind,Tval}
             revj = ll.reverse
 
             f = w/(wdeg)
-            if f < 1
-                f = 1
-            end
 
             vals[joffset] = zero(Tval)
 
@@ -753,7 +750,17 @@ function approxchol_lap(a::SimpleGraph{T};
   pcgIts=Int[],
   params=ApproxCholParams()) where {T}
 
-  a = sparse(a)
+
+  a = lap(adjacency_matrix(a))
+
+  replace!(a.nzval, -1.0 => 0)
+
+  for x in eachcol(a)
+    if x == -1.0
+        x = 0
+    end
+  end
+
   if minimum(a.nzval) < 0
       error("Adjacency matrix can not have negative edge weights")
   end
