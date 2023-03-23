@@ -21,6 +21,7 @@ DataStructures = "0.18"
 CSV = "0.10"
 DataFrames = "1"
 Graphs = "1"
+Laplacians = "1"
 SimpleWeightedGraphs = "1"
 julia = "1"
 
