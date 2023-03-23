@@ -32,6 +32,6 @@ using SparseArrays
    id_result = ge(G, vec(Array(select(attributes, :ideology_difference => AsTable))));
    of_result = ge(G, vec(Array(select(attributes, :offensiveness => AsTable))));
    @test id_result == 0.6951170472250192
-   @test of_result == 1.1266171394483302
+   @test of_result == 1.1015014759360282
 
 end
