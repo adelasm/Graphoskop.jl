@@ -1129,7 +1129,7 @@ It has not yet been optimized, and does not yet make the cholesky factor lower t
 """
 function approxchol_lapChol(a::SimpleGraph{T}; tol::Real=1e-6, maxits=1000, maxtime=Inf, verbose=false, pcgIts=Int[]) where {T}
 
-    a = sparse(a)
+    a = adjacency_matrix(a)
     tol_ =tol
     maxits_ =maxits
     maxtime_ =maxtime
