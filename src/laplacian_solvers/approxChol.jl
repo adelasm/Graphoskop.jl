@@ -1,4 +1,5 @@
 using Graphs
+include("../graph/pcg.jl")
 #=
 
 approxChol Laplacian solver by Daniel A. Spielman, 2017.
@@ -1503,7 +1504,7 @@ function approxchol_lap(a::SimpleGraph{T};
   params=ApproxCholParams()) where {T}
 
     #@show params.split
-    a = adjacency_matrix(a)
+    a = adjacency_matrix(a,Float64)
 
     if minimum(a.nzval) < 0
         error("Adjacency matrix can not have negative edge weights")
