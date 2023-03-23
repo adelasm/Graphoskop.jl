@@ -1,5 +1,4 @@
-include("../src/Graphoskop.jl")
-
+using Graphoskop
 using Test
 using LinearAlgebra
 using SimpleWeightedGraphs
@@ -10,7 +9,6 @@ using Laplacians
 using SparseArrays
 
 @testset "Graphoskop.jl" begin
-    #include("testSolvers.jl")
     function ge(G, o)
         solver = Graphoskop.approxchol_lap(G,verbose=true);
         x = solver(o);

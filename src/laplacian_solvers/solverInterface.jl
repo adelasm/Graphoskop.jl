@@ -1,6 +1,3 @@
-include("../graph/graphAlgs.jl")
-include("../graph/graphOps.jl")
-include("../graph/graphUtils.jl")
 #=
 
 Code for transforming between Laplacian and SDDM solvers.
@@ -296,7 +293,7 @@ function lapWrapSDDM(sddmSolver, a::AbstractArray; tol::Real=1e-6, maxits=Inf, m
     @assert(minimum(a) >= 0, "A must be nonnegative")
     @assert(sum(abs.(diag(a))) == 0, "A must have zero diagonal")
 
-    f = Laplacians.lapWrapComponents(Laplacians.lapWrapConnected(sddmSolver))(a, tol=tol, maxits=maxits, maxtime=maxtime, verbose=verbose, pcgIts=pcgIts)
+    f = lapWrapComponents(lapWrapConnected(sddmSolver))(a, tol=tol, maxits=maxits, maxtime=maxtime, verbose=verbose, pcgIts=pcgIts)
 
     return f
 
