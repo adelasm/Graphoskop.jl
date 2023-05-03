@@ -3,10 +3,13 @@ import numpy as np
 import pandas as pd
 import time
 import scipy.sparse.csgraph as csgraph
+import os
 
-
+absolute_path = os.path.dirname(__file__)
+relative_path = "../test/data/reddit_11_2016_line_node_attributes.csv"
+full_path = os.path.join(absolute_path, relative_path)
 # load data
-df = pd.read_csv('reddit_11_2016_line_node_attributes.csv', delim_whitespace=True)
+df = pd.read_csv(full_path, delim_whitespace=True)
 G = nx.from_pandas_edgelist(df, 'src', 'trg', ['ideology_difference','offensiveness'])
 
 def ge(b, G): 
