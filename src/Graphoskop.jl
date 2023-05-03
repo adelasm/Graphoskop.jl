@@ -16,29 +16,17 @@ function __init__()
     end
   end
 
-using DataStructures
-using SparseArrays
+using Laplacians
 using LinearAlgebra
-using Arpack
-using Statistics
+using Graphs
 
-export pcg
-include("graph/pcg.jl")
-
-export approxchol_lap, ApproxCholParams, approxchol_sddm
-include("laplacian_solvers/approxCholTypes.jl")
-include("laplacian_solvers/approxChol.jl")
-
-export components, vecToComps
-include("graph/graphAlgs.jl")
-
-export lap
-include("graph/graphOps.jl")
-
-export flipIndex
-include("graph/graphUtils.jl")
-
-export chol_sddm, chol_lap, lapWrapSDDM, wrapCapture
-include("laplacian_solvers/solverInterface.jl")
+function ge(G, o)
+    t1 = time()
+    a = adjacency_matrix(G,Float64)
+    solver = Graphoskop.approxchol_lap(a);
+    x = solver(o);
+    println("Solver finished in ", (time() - t1), " seconds")
+    return sqrt(dot(o, x));
+end
 
 end
