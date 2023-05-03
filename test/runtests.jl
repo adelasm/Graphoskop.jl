@@ -9,8 +9,8 @@ using Laplacians
 using SparseArrays
 
 @testset "ge on big data sets" begin
-   attributes = pwd() * "\\data\\reddit_11_2016_line_node_attributes.csv"
-   graph = pwd() * "\\data\\reddit_11_2016_linegraph.csv"
+   attributes = pwd() * "/data/reddit_11_2016_line_node_attributes.csv"
+   graph = pwd() * "/data/reddit_11_2016_linegraph.csv"
 
    df = DataFrame(CSV.File(open(graph))); 
    attributes = DataFrame(CSV.File(open(attributes)));
@@ -28,8 +28,8 @@ using SparseArrays
 end
 
 @testset "ge on smaller data sets" begin
-    attributes = pwd() * "\\data\\small_test_node_attributes.csv"
-    graph = pwd() * "\\data\\small_test_edges.csv" 
+    attributes = pwd() * "/data/small_test_node_attributes.csv"
+    graph = pwd() * "/data/small_test_edges.csv" 
  
     df = DataFrame(CSV.File(open(graph))); 
     attributes = DataFrame(CSV.File(open(attributes)));
