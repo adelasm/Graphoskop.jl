@@ -1,10 +1,6 @@
+"""A fork of Laplacians.jl with support for the Graphs.jl datatypes.
+"""
 module Graphoskop
-
-using DataStructures
-using SparseArrays
-using LinearAlgebra
-using Arpack
-using Statistics
 
 function __init__()
 
@@ -20,11 +16,17 @@ function __init__()
     end
   end
 
-export approxchol_lap, ApproxCholParams, approxchol_sddm
-include("laplacian_solvers/approxCholTypes.jl")
-include("laplacian_solvers/approxChol.jl")
+using Laplacians
+using LinearAlgebra
+using Graphs
 
-export chol_sddm, chol_lap, lapWrapSDDM, wrapCapture
-include("laplacian_solvers/solverInterface.jl")
+function ge(G, o)
+    t1 = time()
+    a = adjacency_matrix(G,Float64)
+    solver = Graphoskop.approxchol_lap(a);
+    x = solver(o);
+    println("Solver finished in ", (time() - t1), " seconds")
+    return sqrt(dot(o, x));
+end
 
 end
