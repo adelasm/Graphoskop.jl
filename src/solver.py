@@ -1,3 +1,4 @@
+import random
 import networkx as nx
 import numpy as np
 import pandas as pd
@@ -12,7 +13,7 @@ full_path = os.path.join(absolute_path, relative_path)
 df = pd.read_csv(full_path, delim_whitespace=True)
 G = nx.from_pandas_edgelist(df, 'src', 'trg', ['ideology_difference','offensiveness'])
 
-def ge(b, G): 
+def ge(G, b): 
    # get largest connected component
    largest_cc = max(nx.connected_components(G), key=len)
    G_cc = G.subgraph(largest_cc)
@@ -31,12 +32,25 @@ def ge(b, G):
 start = time.time()
 
 b = df['offensiveness'].values
-result_ideology_difference = ge(b,G)
+result_ideology_difference = ge(G,b)
 
 b = df['ideology_difference'].values
-result_offensiveness = ge(b,G)
+result_offensiveness = ge(G,b)
 
 end = time.time()
+
 print("ideology_difference Result: ", result_ideology_difference)
 print("Offensiveness Result: ", result_offensiveness)
 print("Time taken: ", end - start, "seconds")
+
+total = 0.0
+
+for i in range(1,200):
+   G = nx.random_graphs.gnp_random_graph(1000,3000)
+   b = np.random.default_rng().uniform(low=0, high=1, size=1000)
+   start = time.time()
+   print("Result", ge(G,b))
+   end = time.time()
+   total += end - start
+
+print("Average time: ", total/200)

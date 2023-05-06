@@ -21,8 +21,8 @@ using LinearAlgebra
 using Graphs
 
 function ge(G, o)
-    t1 = time()
     a = adjacency_matrix(G,Float64)
+    t1 = time()
     solver = Graphoskop.approxchol_lap(a);
     x = solver(o);
     println("Solver finished in ", (time() - t1), " seconds")

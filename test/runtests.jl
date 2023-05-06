@@ -7,6 +7,7 @@ using CSV
 using DataFrames
 using Laplacians
 using SparseArrays
+using Random
 
 @testset "ge on big data sets" begin
    attributes = pwd() * "/data/reddit_11_2016_line_node_attributes.csv"
@@ -22,8 +23,8 @@ using SparseArrays
 
    id_result = Graphoskop.ge(G, vec(Array(select(attributes, :ideology_difference => AsTable))));
    of_result = Graphoskop.ge(G, vec(Array(select(attributes, :offensiveness => AsTable))));
-   @test round(id_result,digits=3) == 2.034
-   @test round(of_result,digits=3) == 3.456
+   @test round(id_result, digits = 3) == 2.034
+   @test round(of_result, digits = 3) == 3.456
 
 end
 
@@ -41,8 +42,35 @@ end
  
     id_result = Graphoskop.ge(G, vec(Array(select(attributes, :ideology_difference => AsTable))));
     of_result = Graphoskop.ge(G, vec(Array(select(attributes, :offensiveness => AsTable))));
-    @test round(id_result,digits=3) == 0.726
-    @test round(of_result,digits=3) == 1.127
+    @test round(id_result, digits = 3) == 0.726
+    @test round(of_result, digits = 3) == 1.127
  
 
  end
+
+@testset "ge on smaller random datasets" begin
+   rng = MersenneTwister(34567)
+   G = SimpleWeightedGraph(erdos_renyi(100, 300, rng=rng));
+   s = rand(rng, Float64, 100);
+   @test round(Graphoskop.ge(G,s), digits = 3) == 1.492
+end
+
+@testset "ge on medium random datasets" begin
+   rng = MersenneTwister(1234)
+   G = SimpleWeightedGraph(erdos_renyi(1000, 3000, rng=rng));
+   s = rand(rng, Float64, 1000);
+   @test round(Graphoskop.ge(G,s), digits = 3) == 4.508
+end
+
+@testset "average time for 200 runs of medium random datasets" begin
+   total = 0.0
+   for i in 0:200
+      G = SimpleWeightedGraph(erdos_renyi(1000, 3000));
+      s = rand(Float64, 1000);
+      start_time = time()
+      println("Result: ", round(Graphoskop.ge(G,s), digits = 3))
+      end_time = time()
+      total += end_time - start_time
+   end
+   println("Average time: ", total/200)
+end
