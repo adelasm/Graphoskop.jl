@@ -46,10 +46,10 @@ print("Time taken: ", end - start, "seconds")
 total = 0.0
 
 for i in range(1,200):
-   G = nx.random_graphs.gnp_random_graph(1000,3000)
-   b = np.random.default_rng().uniform(low=0, high=1, size=1000)
+   G2 = nx.random_graphs.gnp_random_graph(1000,0.5)
+   b2 = np.random.default_rng().uniform(low=0, high=1, size=1000)
    start = time.time()
-   print("Result", ge(G,b))
+   print("Result", ge(G2,b2))
    end = time.time()
    total += end - start
 

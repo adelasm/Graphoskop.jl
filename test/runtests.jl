@@ -50,22 +50,22 @@ end
 
 @testset "ge on smaller random datasets" begin
    rng = MersenneTwister(34567)
-   G = SimpleWeightedGraph(erdos_renyi(100, 300, rng=rng));
+   G = SimpleWeightedGraph(erdos_renyi(100, 0.5, rng=rng));
    s = rand(rng, Float64, 100);
-   @test round(Graphoskop.ge(G,s), digits = 3) == 1.492
+   @test round(Graphoskop.ge(G,s), digits = 3) == 0.413
 end
 
 @testset "ge on medium random datasets" begin
    rng = MersenneTwister(1234)
-   G = SimpleWeightedGraph(erdos_renyi(1000, 3000, rng=rng));
+   G = SimpleWeightedGraph(erdos_renyi(1000, 0.5, rng=rng));
    s = rand(rng, Float64, 1000);
-   @test round(Graphoskop.ge(G,s), digits = 3) == 4.508
+   @test round(Graphoskop.ge(G,s), digits = 3) == 0.406
 end
 
 @testset "average time for 200 runs of medium random datasets" begin
    total = 0.0
    for i in 0:200
-      G = SimpleWeightedGraph(erdos_renyi(1000, 3000));
+      G = SimpleWeightedGraph(erdos_renyi(1000, 0.5));
       s = rand(Float64, 1000);
       start_time = time()
       println("Result: ", round(Graphoskop.ge(G,s), digits = 3))
