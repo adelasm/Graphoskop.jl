@@ -20,12 +20,14 @@ using Laplacians
 using LinearAlgebra
 using Graphs
 
-function ge(G, o)
+function ge(G, o, verbose=false)
     a = adjacency_matrix(G,Float64)
     t1 = time()
     solver = Graphoskop.approxchol_lap(a);
     x = solver(o);
-    println("Solver finished in ", (time() - t1), " seconds")
+    if verbose
+        println("Solver finished in ", (time() - t1), " seconds")
+    end
     return sqrt(dot(o, x));
 end
 

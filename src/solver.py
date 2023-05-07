@@ -5,6 +5,7 @@ import pandas as pd
 import time
 import scipy.sparse.csgraph as csgraph
 import os
+from contextlib import redirect_stdout
 
 absolute_path = os.path.dirname(__file__)
 relative_path = "../test/data/reddit_11_2016_line_node_attributes.csv"
@@ -44,13 +45,15 @@ print("Offensiveness Result: ", result_offensiveness)
 print("Time taken: ", end - start, "seconds")
 
 total = 0.0
-
-for i in range(1,200):
-   G2 = nx.random_graphs.gnp_random_graph(1000,0.5)
-   b2 = np.random.default_rng().uniform(low=0, high=1, size=1000)
-   start = time.time()
-   print("Result", ge(G2,b2))
-   end = time.time()
-   total += end - start
+with open('python_out.txt', 'w') as f:
+    with redirect_stdout(f):
+      for i in range(1,200):
+         G2 = nx.random_graphs.fast_gnp_random_graph(1000,0.5)
+         b2 = np.random.default_rng().uniform(low=0, high=1, size=1000)
+         start = time.time()
+         print("Result: " * ge(G2,b2))
+         end = time.time()
+         print("Time: " * end - start)
+         total += end - start
 
 print("Average time: ", total/200)
