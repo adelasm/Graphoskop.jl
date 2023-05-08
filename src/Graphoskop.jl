@@ -23,7 +23,6 @@ using CSV
 using DataFrames
 using SimpleWeightedGraphs
 using Plots
-using PlotlyJS
 
 function ge(G, o, verbose=false)
     a = adjacency_matrix(G,Float64)
@@ -52,9 +51,13 @@ function generateTestData(itera)
 end
 
 function plotTestData()
-    julia_data = readtable("julia_out.csv",DataFrame)
-    python_data = read("python_out.csv",DataFrame)
-    PlotlyJS.plot(julia_data.Time)
+    julia_data = CSV.read("julia_out.csv", DataFrame)
+    python_data = CSV.read("python_out.csv", DataFrame)
+    Plots.plot(julia_data.Time, label="Julia")
+    plot!(python_data.Time, label="Python")
+    xlabel!("Total time")
+    ylabel!("Iterations")
+    png("time_comparison")
 end
 
 end
