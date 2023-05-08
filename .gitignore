@@ -1,4 +1,4 @@
 /Manifest.toml
 /.vscode/
-python_out.txt
-julia_out.txt
+python_out.csv
+julia_out.csv

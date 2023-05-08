@@ -62,21 +62,16 @@ end
    @test round(Graphoskop.ge(G,s), digits = 3) == 0.406
 end
 
-@testset "average time for 200 runs of medium random datasets" begin
+@testset "average time for 200 runs of medium random datasets less than 5 seconds" begin
    total = 0.0
-   open("julia_out.txt", "w") do file
-      for i in 0:200
-         G = SimpleWeightedGraph(erdos_renyi(1000, 0.5));
-         s = rand(Float64, 1000);
-         start_time = time()
-         result = string("Result: ", round(Graphoskop.ge(G,s), digits = 3))
-         end_time = time()
-         println(file, result)
-         result_time = end_time - start_time
-         result_time_string = string(result_time)
-         println(file, result_time_string)
-         total += result_time
-      end
+   for i in 0:200
+      G = SimpleWeightedGraph(erdos_renyi(1000, 0.5));
+      s = rand(Float64, 1000);
+      start_time = time()
+      result = round(Graphoskop.ge(G,s), digits = 3)
+      end_time = time()
+      result_time = end_time - start_time
+      total += result_time
    end
-   println("Average time: ", total/200)
+   @test total/200 < 5.0
 end

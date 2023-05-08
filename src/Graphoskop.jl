@@ -19,16 +19,42 @@ function __init__()
 using Laplacians
 using LinearAlgebra
 using Graphs
+using CSV
+using DataFrames
+using SimpleWeightedGraphs
+using Plots
+using PlotlyJS
 
 function ge(G, o, verbose=false)
     a = adjacency_matrix(G,Float64)
     t1 = time()
-    solver = Graphoskop.approxchol_lap(a);
+    solver = Laplacians.approxchol_lap(a);
     x = solver(o);
     if verbose
         println("Solver finished in ", (time() - t1), " seconds")
     end
     return sqrt(dot(o, x));
+end
+function generateTestData(itera)
+    df = DataFrame(Time = Float64[])
+    total = 0.0
+    for _ in 0:itera
+      G = SimpleWeightedGraph(erdos_renyi(1000, 0.5));
+      s = rand(Float64, 1000);
+      start_time = time()
+      round(Graphoskop.ge(G,s), digits = 3)
+      end_time = time()
+      result_time = end_time - start_time
+      total += result_time
+      push!(df, [total])
+   end
+   CSV.write("julia_out.csv", df)
+end
+
+function plotTestData()
+    julia_data = readtable("julia_out.csv",DataFrame)
+    python_data = read("python_out.csv",DataFrame)
+    PlotlyJS.plot(julia_data.Time)
 end
 
 end
