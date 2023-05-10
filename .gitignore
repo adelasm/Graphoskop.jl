@@ -3,3 +3,4 @@
 python_out.csv
 julia_out.csv
 time_comparison.png
+__pycache__
