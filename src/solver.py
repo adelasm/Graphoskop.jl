@@ -18,7 +18,7 @@ def testOn20kNodes():
    attr_relative_path = "../test/data/reddit_11_2016_line_node_attributes.csv"
    attr_full_path = os.path.join(absolute_path, attr_relative_path)
    edge_relative_path = "../test/data/reddit_11_2016_linegraph.csv"
-   edge_full_path = os.path.join(absolute_path, attr_relative_path)
+   edge_full_path = os.path.join(absolute_path, edge_relative_path)
    # load data
    attr_df = pd.read_csv(attr_full_path, delim_whitespace=True)
    edge_df = pd.read_csv(edge_full_path, delim_whitespace=True)
