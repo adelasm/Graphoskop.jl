@@ -9,7 +9,7 @@ from solver import ge
 
 def generateRandomTestData():
    total = 0.0
-   with open('python_out.csv', 'w', newline='') as f:
+   with open('../../outputs/python_out.csv', 'w', newline='') as f:
       writer = csv.writer(f)
       writer.writerow(['Time'])
       for i in range(0,200):
