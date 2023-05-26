@@ -53,17 +53,31 @@ end
  end
 
 @testset "ge on smaller random datasets" begin
-   rng = MersenneTwister(34567)
-   G = SimpleWeightedGraph(erdos_renyi(100, 0.5, seed=34567));
-   s = rand(rng, Float64, 100);
-   @test round(Graphoskop.ge(G,s), digits = 3) == 0.412
+   attributes = pwd() * "/data/random_100_attributes.csv"
+   graph = pwd() * "/data/random_100_graph.csv" 
+
+   df = DataFrame(CSV.File(open(graph)))
+   attributes = DataFrame(CSV.File(open(attributes)));
+   size = max(maximum(df.src), maximum(df.trg))
+   G = SimpleGraph(size);
+   for row in eachrow(df)
+    add_edge!(G, row.src, row.trg);
+   end
+   @test round(Graphoskop.ge(G,attributes[!,"weight"]), digits = 3) == 0.401
 end
 
 @testset "ge on medium random datasets" begin
-   rng = MersenneTwister(1234)
-   G = SimpleWeightedGraph(erdos_renyi(1000, 0.5, seed=1234));
-   s = rand(rng, Float64, 1000);
-   @test round(Graphoskop.ge(G,s), digits = 3) == 0.409
+   attributes = pwd() * "/data/random_1000_attributes.csv"
+   graph = pwd() * "/data/random_1000_graph.csv" 
+
+   df = DataFrame(CSV.File(open(graph)))
+   attributes = DataFrame(CSV.File(open(attributes)));
+   size = max(maximum(df.src), maximum(df.trg))
+   G = SimpleGraph(size);
+   for row in eachrow(df)
+    add_edge!(G, row.src, row.trg);
+   end
+   @test round(Graphoskop.ge(G,attributes[!,"weight"]), digits = 3) == 0.418
 end
 
 @testset "average time for 200 runs of medium random datasets less than 5 seconds" begin
