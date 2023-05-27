@@ -21,10 +21,21 @@ using SimpleWeightedGraphs
         end
     end
 
-    function ge(G, o, verbose=false)
+    function approxChol_ge(G, o, verbose=false)
         a = adjacency_matrix(G,Float64)
         t1 = time()
         solver = Laplacians.approxchol_lap(a);
+        x = solver(o);
+        if verbose
+            println("Solver finished in ", (time() - t1), " seconds")
+        end
+        return sqrt(dot(o, x));
+    end
+
+    function cg_ge(G, o, verbose=false) 
+        a = adjacency_matrix(G,Float64)
+        t1 = time()
+        solver = Laplacians.cgSolver(a);
         x = solver(o);
         if verbose
             println("Solver finished in ", (time() - t1), " seconds")
